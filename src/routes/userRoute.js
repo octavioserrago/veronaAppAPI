@@ -7,6 +7,7 @@ router.get('/', userController.index);
 router.post('/', userController.store);
 router.get('/:ID', userController.show);
 router.put('/:ID', userController.update);
+router.post('/login', userController.auth);
 
 
 

@@ -51,3 +51,19 @@ exports.update = async (req, res) => {
         res.status(500).json({ success: false, message: 'Error al intentar recuperar el usuaruio' });
     }
 }
+
+exports.auth = async (req, res) => {
+    const { name, password } = req.body;
+    try {
+        const user = await userModel.auth({ name, password });
+        if (user) {
+            res.json({ success: true, message: 'Autenticación exitosa', user });
+        } else {
+            res.status(401).json({ success: false, message: 'Nombre de usuario o contraseña incorrectos' });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'Error al intentar autenticar el usuario' });
+    }
+};
+
