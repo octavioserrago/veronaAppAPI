@@ -14,6 +14,8 @@ exports.index = async (req, res) => {
 
 exports.store = async (req, res) => {
     const { name, password, role_id, branch_id } = req.body;
+    console.log("Received data:", { name, password, role_id, branch_id });
+
     try {
         await userModel.create({ name, password, role_id, branch_id });
         res.json({ success: true, message: 'El usuario se ha creado correctamente' });
@@ -21,7 +23,8 @@ exports.store = async (req, res) => {
         console.log(error);
         res.status(500).json({ success: false, message: 'Error al intentar agregar usuario' });
     }
-}
+};
+
 
 
 exports.show = async (req, res) => {
@@ -67,3 +70,16 @@ exports.auth = async (req, res) => {
     }
 };
 
+exports.delete = async (req, res) => {
+    const { ID } = req.params;
+    try {
+        const result = await userModel.delete(ID);
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        res.status(200).json({ message: 'Usuario eliminado exitosamente' });
+    } catch (error) {
+        console.error('Error al eliminar usuario:', error);
+        res.status(500).json({ message: 'Error al eliminar usuario', error });
+    }
+};
