@@ -41,13 +41,13 @@ exports.update = async ({ ID, name, password }) => {
         UPDATE users
         SET
             user_name = ?,
-            user_password = ?,  -- Aquí deberías usar la contraseña hasheada
+            user_password = ?,  
             modified_at = ?
         WHERE user_id = ?`;
     try {
         const modifiedAt = formatToday();
-        const saltRounds = 10;  // Asegúrate de usar el mismo saltRounds que en create
-        const hashedPassword = await bcrypt.hash(password, saltRounds);  // Hashea la nueva contraseña
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
         await connection.query(query, [name, hashedPassword, modifiedAt, ID]);
         return { success: true, message: 'Usuario actualizado correctamente' };
     } catch (error) {

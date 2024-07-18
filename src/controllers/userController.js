@@ -46,14 +46,21 @@ exports.show = async (req, res) => {
 exports.update = async (req, res) => {
     const { ID } = req.params;
     const { name, password } = req.body;
+
+    console.log('Datos recibidos:', { ID, name, password });
+
     try {
-        userModel.update({ name, password, ID });
+        if (!name && !password) {
+            return res.status(400).json({ success: false, message: 'Debe proporcionar al menos un campo para actualizar' });
+        }
+
+        await userModel.update({ ID, name, password });
         res.json({ success: true, message: 'El usuario se ha modificado correctamente' });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: 'Error al intentar recuperar el usuaruio' });
+        console.error('Error al intentar actualizar usuario:', error);
+        res.status(500).json({ success: false, message: 'Error al intentar actualizar el usuario' });
     }
-}
+};
 
 exports.auth = async (req, res) => {
     const { name, password } = req.body;
