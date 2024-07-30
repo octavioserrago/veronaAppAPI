@@ -57,7 +57,7 @@ exports.update = async ({ ID, name, password }) => {
 
 exports.auth = async ({ name, password }) => {
     const query = `
-        SELECT user_name, user_password, role_id, branch_id 
+        SELECT user_id, user_name, user_password, role_id, branch_id 
         FROM users 
         WHERE user_name = ?`;
     try {

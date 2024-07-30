@@ -6,6 +6,7 @@ const branchRoute = require('./src/routes/branchRoute');
 const roleRoute = require('./src/routes/roleRoute');
 const userRoute = require('./src/routes/userRoute');
 const saleRoute = require('./src/routes/saleRoute');
+const moneyEntryRoute = require('./src/routes/moneyEntryRoute');
 
 const app = express();
 const port = 8888;
@@ -18,6 +19,7 @@ app.use('/branches', branchRoute);
 app.use('/roles', roleRoute);
 app.use('/users', userRoute);
 app.use('/sales', saleRoute);
+app.use('/moneyEntries', moneyEntryRoute);
 
 app.get('/', (req, res) => {
     res.send('¡Bienvenido a mi aplicación!');
