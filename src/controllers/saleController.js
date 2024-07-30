@@ -3,19 +3,21 @@ const saleModel = require('../models/saleModel');
 
 exports.index = async (req, res) => {
     try {
-        const results = await saleModel.all();
+        const searchTerm = req.query.search || '';
+
+        const results = await saleModel.search(searchTerm);
         res.json({ success: true, results });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ success: false, message: 'Error al intentar recuperar la venta' });
+        res.status(500).json({ success: false, message: 'Error al intentar recuperar las ventas' });
     }
-}
+};
 
 
 exports.store = async (req, res) => {
-    const { customer, material, detail, payment_method, discount, total_amount } = req.body;
+    const { customer, material, color, detail, payment_method, total_amount, branch_id } = req.body;
     try {
-        await saleModel.create({ customer, material, detail, payment_method, discount, total_amount });
+        await saleModel.create({ customer, material, color, detail, payment_method, total_amount, branch_id });
         res.json({ success: true, message: 'La venta se ha creado correctamente' });
     } catch (error) {
         console.log(error);
