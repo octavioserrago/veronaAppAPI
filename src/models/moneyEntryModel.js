@@ -1,5 +1,5 @@
 const connection = require('../../db');
-const { formatToday } = require('../helpers/dateHelper');
+
 
 exports.all = async () => {
     const query = `
@@ -13,13 +13,13 @@ exports.all = async () => {
     }
 };
 
-exports.create = async ({ branch_id, date, amount, user_id, sale_id }) => {
+exports.create = async ({ branch_id, date, amount, payment_method, user_id, sale_id }) => {
     const query = `
-        INSERT INTO moneyEntries (branch_id, date, amount, user_id, sale_id)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO moneyEntries (branch_id, date, amount, payment_method, user_id, sale_id)
+        VALUES (?, ?, ?, ?, ?, ?)
     `;
     try {
-        await connection.query(query, [branch_id, date, amount, user_id, sale_id]);
+        await connection.query(query, [branch_id, date, amount, payment_method, user_id, sale_id]);
     } catch (error) {
         throw error;
     }
@@ -38,19 +38,20 @@ exports.find = async (id) => {
     }
 };
 
-exports.update = async ({ moneyEntry_id, branch_id, date, amount, user_id, sale_id }) => {
+exports.update = async ({ moneyEntry_id, branch_id, date, amount, payment_method, user_id, sale_id }) => {
     const query = `
         UPDATE moneyEntries
         SET
             branch_id = ?,
             date = ?,
             amount = ?,
+            payment_method = ?,
             user_id = ?,
             sale_id = ?
         WHERE moneyEntry_id = ?
     `;
     try {
-        await connection.query(query, [branch_id, date, amount, user_id, sale_id, moneyEntry_id]);
+        await connection.query(query, [branch_id, date, amount, payment_method, user_id, sale_id, moneyEntry_id]);
     } catch (error) {
         throw error;
     }

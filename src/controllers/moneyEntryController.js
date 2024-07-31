@@ -11,9 +11,9 @@ exports.index = async (req, res) => {
 }
 
 exports.store = async (req, res) => {
-    const { branch_id, date, amount, user_id, sale_id } = req.body;
+    const { branch_id, date, amount, payment_method, user_id, sale_id } = req.body;
     try {
-        await moneyEntryModel.create({ branch_id, date, amount, user_id, sale_id });
+        await moneyEntryModel.create({ branch_id, date, amount, payment_method, user_id, sale_id });
         res.json({ success: true, message: 'La entrada de dinero se ha creado correctamente' });
     } catch (error) {
         console.log(error);
@@ -38,9 +38,9 @@ exports.show = async (req, res) => {
 
 exports.update = async (req, res) => {
     const { ID } = req.params;
-    const { branch_id, date, amount, user_id, sale_id } = req.body;
+    const { branch_id, date, amount, payment_method, user_id, sale_id } = req.body;
     try {
-        await moneyEntryModel.update({ moneyEntry_id: ID, branch_id, date, amount, user_id, sale_id });
+        await moneyEntryModel.update({ moneyEntry_id: ID, branch_id, date, amount, payment_method, user_id, sale_id });
         res.json({ success: true, message: 'La entrada de dinero se ha modificado correctamente' });
     } catch (error) {
         console.log(error);
