@@ -71,22 +71,18 @@ exports.filterByDate = async (req, res) => {
 }
 
 exports.filterBySaleId = async (req, res) => {
-    const { sale_id } = req.query; // Obtén el sale_id de los parámetros de consulta
+    const { sale_id } = req.params;
 
     if (!sale_id) {
         return res.status(400).json({ error: 'El parámetro sale_id es requerido.' });
     }
 
     try {
-        // Consulta a la base de datos para obtener las entradas de dinero por sale_id
-        const entries = await MoneyEntry.findAll({
-            where: { sale_id }
-        });
-
-        // Responde con los datos obtenidos
+        const entries = await moneyEntryModel.filterBySaleId(sale_id);
         res.status(200).json({ results: entries });
     } catch (error) {
         console.error('Error al obtener entradas de dinero:', error);
         res.status(500).json({ error: 'Error al obtener entradas de dinero.' });
     }
 };
+

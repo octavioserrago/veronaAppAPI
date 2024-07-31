@@ -1,4 +1,4 @@
-const branchModel = require('../models/moneyEntryModel');
+const branchModel = require('../models/branchModel');
 
 
 exports.index = async (req, res) => {

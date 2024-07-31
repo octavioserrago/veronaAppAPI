@@ -9,6 +9,8 @@ router.get('/:ID', moneyEntryController.show);
 router.put('/:ID', moneyEntryController.update);
 router.delete('/:ID', moneyEntryController.delete);
 router.get('/filterByDate', moneyEntryController.filterByDate);
-router.get('/filterBySaleId', moneyEntryController.filterBySaleId);
+router.get('/filterBySaleId/:sale_id', moneyEntryController.filterBySaleId);
+
+
 
 module.exports = router;
