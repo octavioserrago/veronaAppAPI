@@ -10,6 +10,39 @@ exports.index = async (req, res) => {
     }
 }
 
+exports.findByBranchId = async (req, res) => {
+    try {
+        const branchId = req.query.branch_id;
+
+        if (!branchId) {
+            return res.status(400).json({ success: false, message: 'branch_id es requerido' });
+        }
+
+        const results = await creditVerificationModel.findByBranchId(branchId);
+        res.json({ success: true, results });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'Error al intentar recuperar las verificaciones de crédito' });
+    }
+};
+
+// Actualiza el real_amount de una verificación de crédito
+exports.updateRealAmount = async (req, res) => {
+    const { creditVerification_id, real_amount } = req.body;
+
+    if (!creditVerification_id || real_amount === undefined) {
+        return res.status(400).json({ success: false, message: 'Faltan parámetros' });
+    }
+
+    try {
+        await creditVerificationModel.updateRealAmount(creditVerification_id, real_amount);
+        res.json({ success: true, message: 'Monto real actualizado correctamente' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'Error al intentar actualizar el monto real' });
+    }
+};
+
 exports.store = async (req, res) => {
     const { sale_id, amount_charged, real_amount } = req.body;
     try {

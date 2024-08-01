@@ -13,6 +13,46 @@ exports.all = async () => {
     }
 };
 
+//Traer todas las verificaciones a realizar segun la sucursal.
+exports.findByBranchId = async (branchId) => {
+    const query = `
+        SELECT
+            cv.creditVerification_id,
+            cv.sale_id,
+            cv.amount_charged,
+            cv.real_amount,
+            cv.created_at,
+            cv.modified_at
+        FROM
+            creditVerifications cv
+        JOIN
+            sales s ON cv.sale_id = s.sale_id
+        WHERE
+            s.branch_id = ?
+    `;
+    try {
+        const [results] = await connection.query(query, [branchId]);
+        return results;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Actualiza el real_amount de una verificación de crédito existente
+exports.updateRealAmount = async (creditVerification_id, real_amount) => {
+    const query = `
+        UPDATE creditVerifications
+        SET real_amount = ?
+        WHERE creditVerification_id = ?
+    `;
+    try {
+        await connection.query(query, [real_amount, creditVerification_id]);
+    } catch (error) {
+        throw error;
+    }
+};
+
+
 // Crea una nueva verificación de crédito
 exports.create = async ({ sale_id, amount_charged, real_amount }) => {
     const query = `
