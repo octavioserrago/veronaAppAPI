@@ -12,7 +12,7 @@ exports.index = async (req, res) => {
 
 exports.findByBranchId = async (req, res) => {
     try {
-        const branchId = req.query.branch_id;
+        const branchId = req.params.branch_id;
 
         if (!branchId) {
             return res.status(400).json({ success: false, message: 'branch_id es requerido' });
@@ -25,6 +25,7 @@ exports.findByBranchId = async (req, res) => {
         res.status(500).json({ success: false, message: 'Error al intentar recuperar las verificaciones de crédito' });
     }
 };
+
 
 // Actualiza el real_amount de una verificación de crédito
 exports.updateRealAmount = async (req, res) => {

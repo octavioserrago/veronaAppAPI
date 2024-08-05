@@ -8,6 +8,7 @@ const userRoute = require('./src/routes/userRoute');
 const saleRoute = require('./src/routes/saleRoute');
 const moneyEntryRoute = require('./src/routes/moneyEntryRoute');
 const creditVerificationRoute = require('./src/routes/creditVerificationsRoute')
+const expensesRoute = require('./src/routes/expensesRoute')
 
 const app = express();
 const port = 8888;
@@ -22,6 +23,7 @@ app.use('/users', userRoute);
 app.use('/sales', saleRoute);
 app.use('/moneyEntries', moneyEntryRoute);
 app.use('/creditVerifications', creditVerificationRoute);
+app.use('/expenses', expensesRoute);
 
 app.get('/', (req, res) => {
     res.send('¡Bienvenido a mi aplicación!');
@@ -30,3 +32,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor iniciado en: http://localhost:${port}`);
 });
+
+//node --env-file=.env --watch app.js

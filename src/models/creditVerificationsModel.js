@@ -13,7 +13,6 @@ exports.all = async () => {
     }
 };
 
-//Traer todas las verificaciones a realizar segun la sucursal.
 exports.findByBranchId = async (branchId) => {
     const query = `
         SELECT
@@ -37,6 +36,7 @@ exports.findByBranchId = async (branchId) => {
         throw error;
     }
 };
+
 
 // Actualiza el real_amount de una verificación de crédito existente
 exports.updateRealAmount = async (creditVerification_id, real_amount) => {
